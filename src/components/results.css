@@ -1,0 +1,15 @@
+code#results {
+    height: 100vh;
+    flex: 1;
+    color: white;
+    overflow-y: scroll;
+    background-color: black;
+}
+
+code#results > div#statistics {
+    position: absolute;
+
+    bottom: 0;
+    color: white;
+    padding: 10px;
+}

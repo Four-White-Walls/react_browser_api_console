@@ -1,3 +1,12 @@
 div#settings {
-    flex: 1
+    flex: 1;
+}
+
+div#settings input {
+    width: 90%;
+}
+
+div#settings textarea {
+    resize: none;
+    width: 100%;
 }

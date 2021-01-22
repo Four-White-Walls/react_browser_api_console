@@ -20,14 +20,18 @@ const RequestState = (props) => {
       try {
         let start_time = new Date().getTime();
         fetch(req.url, {
-            ...req.options
+            method: req.reqtype,
+            body: req.body,
+            headers: {...req.headers}
         })
         .then(
           async response => {
             let end_time = new Date().getTime();
+            console.log(await response.headers)
             return{
               res: await response.json(),
-              time: end_time - start_time
+              time: end_time - start_time,
+              status: await response.status
             } 
           })
         .then(data => {

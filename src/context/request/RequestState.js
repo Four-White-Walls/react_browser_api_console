@@ -1,10 +1,13 @@
 import React, { useReducer } from 'react';
 import RequestContext from './RequestContext';
 import RequestReducer from './RequestReducer';
+import GetRequest from '../../request_classes/GetRequest';
+import PostRequest from '../../request_classes/PostRequest'
 
 import {
   NEW_GET_REQUEST,
-  UPDATE_REQUEST_STATE
+  UPDATE_REQUEST_STATE,
+  NEW_POST_REQUEST
 } from '../types';
 
 const RequestState = (props) => {
@@ -18,29 +21,29 @@ const RequestState = (props) => {
 
   const newGetRequest = async (req) => {
       try {
-        let start_time = new Date().getTime();
-        fetch(req.url, {
-            method: req.reqtype,
-            body: req.body,
-            headers: {...req.headers}
-        })
-        .then(
-          async response => {
-            let end_time = new Date().getTime();
-            console.log(await response.headers)
-            return{
-              res: await response.json(),
-              time: end_time - start_time,
-              status: await response.status
-            } 
-          })
-        .then(data => {
-            dispatch({
+        new GetRequest(req).call()
+            .then((data) => {
+              dispatch({
                 type: NEW_GET_REQUEST,
-                payload: {data}
+                payload: data,
+              })
             })
+      }
+      catch(err) {
+        console.error(err)
+      }
+    }
 
-        });
+    const newPostRequest = async (req) => {
+      console.log(req)
+      try {
+        new PostRequest(req).call()
+            .then((data) => {
+              dispatch({
+                type: NEW_POST_REQUEST,
+                payload: data,
+              })
+            })
       }
       catch(err) {
         console.error(err)
@@ -53,6 +56,7 @@ const RequestState = (props) => {
         request: state.request,
         response: state.response,
         newGetRequest,
+        newPostRequest
       }}
     >
       {props.children}

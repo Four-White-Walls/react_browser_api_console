@@ -10,9 +10,9 @@ const { response } = requestContext;
 
     return (
         <code id="results">
-            {response.data ? <ReactJson src={response.data.res} theme="shapeshifter"/> : 'Please submit a new request'}
+            {response.data ? <ReactJson src={response.data} theme="shapeshifter"/> : 'Please submit a new request'}
             <div id="statistics">
-            <p>{response.data ? 'Response Time: ' +  `${response.data.time}ms Status: ${response.data.status}`: ''}</p>
+            <p>{response.data ? 'Response Time: ' +  `${response.time}ms Status: ${response.status}`: ''}</p>
             </div>
 
         </code>
